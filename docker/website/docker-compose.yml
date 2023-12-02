@@ -1,0 +1,17 @@
+services:
+  website-1:
+    image: httpd:latest
+    container_name: sitebike
+    ports:
+      - "80:80"
+    volumes: 
+      - ./sitebike/:/usr/local/apache2/htdocs/
+    restart: no #Options - no, on-failure[:max-tries], always, unless-stopped
+  website-2:
+    image: httpd:latest
+    container_name: robert-web
+    ports:
+      - "8080:80"
+    volumes: 
+      - ./robert/:/usr/local/apache2/htdocs/
+    restart: no
