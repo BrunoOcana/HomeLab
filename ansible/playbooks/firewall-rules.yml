@@ -1,0 +1,52 @@
+---
+- name: Configuração do Firewall com iptables
+  hosts: web-servers
+  become: yes
+
+  tasks:
+    - name: Permitir conexões SSH do Servidor Ansible
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        source: <Ansible-IP>
+        destination_port: "22"
+        jump: ACCEPT
+
+    - name: Permitir conexões SSH do PC Host
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        source: <Host-IP>
+        destination_port: "22"
+        jump: ACCEPT
+
+    - name: Permitir conexões HTTP para o Mundo
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: "80"
+        jump: ACCEPT
+
+    - name: Permitir conexões HTTPS para o Mundo
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: "443"
+        jump: ACCEPT
+
+    - name: Permitir pacotes Related e Established
+      iptables:
+        chain: INPUT
+        ctstate: "{{ item }}"
+        jump: ACCEPT
+      with_items:
+        - RELATED
+        - ESTABLISHED
+
+    - name: Definir políticas padrão como DROP
+      iptables:
+        chain: "{{ item }}"
+        policy: DROP
+      with_items:
+        - INPUT
+        - FORWARD

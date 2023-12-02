@@ -1,0 +1,12 @@
+---
+- name: Configurando o site
+  hosts: web-servers
+  become: yes
+  tasks:
+   - name: Clonando repositorio GIT
+     shell: git clone https://github.com/FofuxoSibov/sitebike.git
+
+   - name: Enviando o site para o apache
+     shell: mv * /var/www/html/
+     args:
+      chdir: sitebike/
