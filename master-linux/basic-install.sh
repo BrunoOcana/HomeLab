@@ -11,7 +11,7 @@ timedatectl set-timezone America/Sao_Paulo
 timedatectl set-ntp true
 
 ip -c a
-$ipaddress = ip address show | grep inet | awk '{print $2}'
+$ipaddress = `hostname -I`
 
 cat <<EOF>> /etc/network/interfaces
 auto ens33
@@ -26,7 +26,6 @@ echo "nameserver 127.0.0.1" >> /etc/resolvconf/resolv.conf.d/tail
 echo "nameserver 8.8.8.8" >> /etc/resolvconf/resolv.conf.d/tail
 echo "nameserver 1.1.1.1" >> /etc/resolvconf/resolv.conf.d/tail
 
-vim /etc/network/interfaces
+nano /etc/network/interfaces
 systemctl restart networking.service
-
-
+ip link set dev ens33 up

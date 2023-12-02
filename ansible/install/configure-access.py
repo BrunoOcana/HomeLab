@@ -4,8 +4,14 @@ inputing = True
 hosts = {}
 
 # Adicionar o grupo Python no documento /etc/ansible/hosts
-with open('/etc/ansible/hosts', 'a') as file:
-    file.write("\n[python]")
+
+question = str(input("Você já configurou o usuário 'ansible' nos clientes?\n(s/n): "))
+if question.lower() != "s":
+    exit("Configure o usuário com 'adduser ansible' e 'adduser ansible sudo'.\nVolte para \
+    este script quando terminar este passo. A senha deve ser Senai@134.")
+else:
+    with open('/etc/ansible/hosts', 'a') as file:
+        file.write("\n[python]")
 
 # =========== Input de dados ============== #
 
@@ -28,9 +34,9 @@ while inputing:
 # ========================================== #
 
 # Adicionar o host no documento /etc/ansible/hosts
-for k in range(len(hosts)):
+for k in hosts:
     with open('/etc/ansible/hosts', 'a') as file:
-        file.write(hosts.keys(k)," ansible_host=", hosts.values(k))
+        file.write(k+" ansible_host="+hosts[k])
 
 # Adicionando as variáveis ao grupo python
 with open('/etc/ansible/hosts', 'a') as file:
@@ -41,11 +47,11 @@ with open('/etc/ansible/hosts', 'a') as file:
 
 # Acessando os hosts e executando um comando simples
 for i in hosts:
-    command2 = "echo PermitRootLogin yes >> /etc/ssh/sshd_config"
-    command = "hostname && hostname -I"
+    command2 = "sudo echo PermitRootLogin yes >> /etc/ssh/sshd_config"
+    command = "sudo hostname && hostname -I"
 
     host = hosts[i]
-    username = "root"  # Recomendado ter um usuario só para o ansible
+    username = "ansible"  # Recomendado ter um usuario só para o ansible
     password = "Senai@134"
 
     client = paramiko.client.SSHClient()
@@ -62,7 +68,7 @@ erros = []
 
 for k in hosts:
     try:
-        os.system("ssh-copy-id -i /root/.ssh/id_rsa.pub root@",hosts[k])
+        os.system("ssh-copy-id -i /root/.ssh/id_rsa.pub root@"+hosts[k])
     except:
         print("Não foi possível enviar a chave pública para o host ",k)
         erros.append(hosts[k])

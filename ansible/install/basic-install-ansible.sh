@@ -1,7 +1,6 @@
 # Atualizando e baixando
 apt update
-apt install ansible pip python3 python3-pip -y
-pip install paramiko:latest -y
+apt install ansible pip python3 python3-pip python3-paramiko -y
 
 # Setup básico dos files
 mkdir -p /etc/ansible/playbooks
@@ -10,7 +9,7 @@ touch /etc/ansible/hosts
 # Achando e jogando IP no documento hosts
 # ip -4 address show ens33 | grep inet | awk '{print $2}'
 echo "[default]" >> /etc/ansible/hosts
-echo "ansible_server `hostname -I`" >> /etc/ansible/hosts
+echo "ansible-server" `hostname -I | awk '{print $1}'` >> /etc/ansible/hosts
 
 cat <<EOF>> /etc/ansible/hosts
 
