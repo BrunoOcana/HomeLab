@@ -1,6 +1,7 @@
 # Atualizando e baixando
 apt update
-apt install ansible python3 python3-pip -y
+apt install ansible pip python3 python3-pip -y
+pip install paramiko:latest -y
 
 # Setup básico dos files
 mkdir -p /etc/ansible/playbooks
