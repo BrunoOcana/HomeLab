@@ -20,3 +20,4 @@ iface ens33 inet static
 address  /24
 gateway 
 dns-nameservers
+EOF
