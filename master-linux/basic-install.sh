@@ -26,7 +26,7 @@ echo "nameserver 127.0.0.1" >> /etc/resolvconf/resolv.conf.d/tail
 echo "nameserver 8.8.8.8" >> /etc/resolvconf/resolv.conf.d/tail
 echo "nameserver 1.1.1.1" >> /etc/resolvconf/resolv.conf.d/tail
 
-nano /etc/network/interfaces
+vim /etc/network/interfaces
 systemctl restart networking.service
 
 
