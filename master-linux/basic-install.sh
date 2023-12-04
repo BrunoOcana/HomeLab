@@ -24,6 +24,8 @@ EOF
 echo "nameserver 127.0.0.1" >> /etc/resolvconf/resolv.conf.d/head
 echo "nameserver 8.8.8.8" >> /etc/resolvconf/resolv.conf.d/head
 echo "nameserver 1.1.1.1" >> /etc/resolvconf/resolv.conf.d/head
+resolvconf --enable-updates
+resolvconf -u
 
 nano /etc/network/interfaces
 systemctl restart networking.service
