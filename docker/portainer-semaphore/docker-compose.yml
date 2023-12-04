@@ -9,9 +9,9 @@ services:
     volumes: 
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
-    restart: always
+    restart: "always"
   mysql:
-    restart: unless-stopped
+    restart: "unless-stopped"
     image: mysql:8.0
     hostname: mysql
     volumes:
@@ -22,7 +22,7 @@ services:
       MYSQL_USER: semaphore
       MYSQL_PASSWORD: semaphore@134
   semaphore:
-    restart: unless-stopped
+    restart: "unless-stopped"
     ports:
       - 3000:3000
     image: semaphoreui/semaphore:latest
