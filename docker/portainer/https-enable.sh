@@ -1,6 +1,7 @@
 # Instalando ou atualizando o openssl
 apt update
 apt install openssl
+mkdir certs
 
 # Gerando o certificado na pasta "certs"
 openssl genrsa -out ./certs/portainer.key 2048
