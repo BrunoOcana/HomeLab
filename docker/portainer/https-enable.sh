@@ -6,6 +6,3 @@ apt install openssl
 openssl genrsa -out ./certs/portainer.key 2048
 openssl req -new -key ./certs/portainer.key -out ./certs/portainer.csr
 openssl x509 -req -days 365 -in ./certs/portainer.csr -signkey ./certs/portainer.key -out ./certs/portainer.crt
-
-# Criando o volume no docker
-docker volume create portainer_data
