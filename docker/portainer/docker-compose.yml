@@ -7,7 +7,7 @@ services:
       - "9443:9443"
       - "8000:8000"
     volumes: 
-      - portainer_data:/data
+      - data:/data
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs:/certs
     command:
@@ -23,5 +23,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
     restart: always
+
+# O Docker Compose puxa o nome do diretório para o nome do volume,
+# logo o volume final ficará portainer_data. Se você deixar o nome
+# padrão do volume (portainer_data:), ele sairá portainer_portainer_data:
 volumes:
-  portainer_data:
+  data:
