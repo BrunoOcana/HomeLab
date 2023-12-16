@@ -1,15 +1,5 @@
 version: "3"
 services:
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer_dashboard
-    ports:
-      - "9443:9443"
-      - "8000:8000"
-    volumes: 
-      - portainer_data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: "always"
   mysql:
     restart: "unless-stopped"
     image: mysql:8.0
@@ -50,5 +40,4 @@ services:
     depends_on:
       - mysql # for postgres, change to: postgres
 volumes:
-  portainer_data:
   semaphore-mysql: # to use postgres, switch to: semaphore-postgres

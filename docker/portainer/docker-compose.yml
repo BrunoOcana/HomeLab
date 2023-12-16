@@ -1,0 +1,18 @@
+version: "3"
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer_dashboard
+    ports:
+      - "9443:9443"
+      - "8000:8000"
+    volumes: 
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./certs:/certs
+    command:
+      --sslcert /certs/portainer.crt
+      --sslkey /certs/portainer.key
+    restart: "always"
+volumes:
+  portainer_data:
